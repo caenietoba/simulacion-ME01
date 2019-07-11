@@ -24,6 +24,7 @@
 
 import math
 import numpy as np
+import random
 
 D = input("Ingre el diametro del nanotubo: ")
 N = input("Ingrese la cantidad de links en el nanotubo: ")
@@ -51,10 +52,16 @@ def strength(sigma_c, sigma_L):
     #print(math.exp( -pow( sigma_c/sigma_L, m ) ))
     return 1 - math.exp( -pow( sigma_c/sigma_L, m ) )
 
-import random
+x = []
+y = []
+z = []
+
 #c = 1000
 for c in range_c:
-    print("simulacion ",c)
+    #print("simulacion ",c)
+    # x.append([])
+    # y.append([])
+    # z.append([])
     range_c0 = np.arange(0, c/100.0, cdelta)
     for c0 in range_c0:
         ##c0 = random.random()*c/10000.0
@@ -63,6 +70,27 @@ for c in range_c:
         sigma_c0 = sigma(c0)
         sigma_L = sigma_c0 * pow(N, -1.0/m)
         #print(sigma_c, sigma_L)
-        print(strength(sigma_c, sigma_L))
+        strength1 = strength(sigma_c, sigma_L)
+        #print(strength(sigma_c, sigma_L))
+
+        x.append(c)
+        y.append(c0)
+        z.append(strength1)
+        print(strength1)
+
+from mpl_toolkits.mplot3d import axes3d
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+
+ax1 = fig.add_subplot(111,projection='3d')
+
+# print(x)
+# print(y)
+# print(z)
+#ax1.plot_wireframe(x, y, z)
+ax1.scatter(x, y, z, c='g', marker='o')
+
+plt.show()
 
 
